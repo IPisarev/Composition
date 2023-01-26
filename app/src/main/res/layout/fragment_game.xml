@@ -13,13 +13,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:textColor="@color/purple_700"
+        android:textColor="#651FFF"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="00:00"
-        />
+        tools:text="00:00" />
 
     <TextView
         android:id="@+id/tv_sum"
@@ -71,12 +70,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@android:color/holo_green_light"
+        android:textColor="#616161"
         app:layout_constraintBottom_toTopOf="@id/tv_option_4"
         app:layout_constraintEnd_toStartOf="@id/tv_option_5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="1"
-        />
+        tools:text="1" />
 
     <TextView
         android:id="@+id/tv_option_2"
@@ -84,11 +83,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@android:color/holo_orange_light"
+        android:textColor="#546E7A"
         app:layout_constraintBottom_toTopOf="@id/tv_option_4"
         app:layout_constraintEnd_toStartOf="@id/tv_option_6"
         app:layout_constraintStart_toEndOf="@id/tv_option_4"
-        tools:text="2"
-        />
+        tools:text="2" />
 
     <TextView
         android:id="@+id/tv_option_3"
@@ -108,12 +107,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@android:color/holo_blue_light"
+        android:textColor="#455A64"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tv_option_5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="4"
-        />
+        tools:text="4" />
 
     <TextView
         android:id="@+id/tv_option_5"
@@ -133,11 +132,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@android:color/holo_blue_bright"
+        android:textColor="#D81B60"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_option_5"
-        tools:text="6"
-        />
+        tools:text="6" />
 
     <TextView
         android:id="@+id/tv_answers_progress"
