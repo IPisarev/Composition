@@ -4,6 +4,8 @@ import ru.pisarev.composition.domain.entity.GameSettings
 import ru.pisarev.composition.domain.entity.Level
 import ru.pisarev.composition.domain.entity.Question
 import ru.pisarev.composition.domain.repository.GameRepository
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.random.Random
 
 object GameRepositoryImpl: GameRepository {
@@ -11,17 +13,17 @@ object GameRepositoryImpl: GameRepository {
     private const val MIN_ANSWER_VALUE = 1
 
     override fun generateQuestion(maxSumValue: Int, countOfOption: Int): Question {
-        val sum = Random.nextInt(MIN_SUM_VALUE,maxSumValue)
-        val vivsibleNumber = Random.nextInt(MIN_ANSWER_VALUE,sum)
-        val rightAnswer = sum-vivsibleNumber
+        val sum = Random.nextInt(MIN_SUM_VALUE, maxSumValue + 1)
+        val visibleNumber = Random.nextInt(MIN_ANSWER_VALUE, sum)
         val options = HashSet<Int>()
+        val rightAnswer = sum - visibleNumber
         options.add(rightAnswer)
-
-        while (options.size<countOfOption){
-            options.add(Random.nextInt(MIN_ANSWER_VALUE,sum))
+        val from = max(rightAnswer - countOfOption, MIN_ANSWER_VALUE)
+        val to = min(maxSumValue, rightAnswer + countOfOption)
+        while (options.size < countOfOption) {
+            options.add(Random.nextInt(from, to))
         }
-
-        return Question(sum,vivsibleNumber,options.toList())
+        return Question(sum, visibleNumber, options.toList())
     }
 
     override fun getGameSettings(level: Level): GameSettings {

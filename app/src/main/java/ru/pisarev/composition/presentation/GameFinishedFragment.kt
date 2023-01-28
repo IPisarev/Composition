@@ -36,15 +36,53 @@ class GameFinishedFragment : Fragment() {
             viewLifecycleOwner,
             OnBackPressedCallbackListener()
         )
-
         binding.buttonRetry.setOnClickListener {
             retryGame()
         }
+        bindViews()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding=null
+    }
+
+    private fun bindViews() {
+        with(binding) {
+            emojiResult.setImageResource(getSmileResId())
+            tvRequiredAnswers.text = String.format(
+                getString(R.string.required_score),
+                gameResult.gameSettings.minCountOfRightAnswer
+            )
+            tvScoreAnswers.text = String.format(
+                getString(R.string.score_answers),
+                gameResult.countOfrightAnswer
+            )
+            tvRequiredPercentage.text = String.format(
+                getString(R.string.required_percentage),
+                gameResult.gameSettings.minPercentOfRightAnswer
+            )
+            tvScorePercentage.text = String.format(
+                getString(R.string.score_percentage),
+                getPercentOfRightAnswers()
+            )
+        }
+    }
+
+    private fun getSmileResId(): Int {
+        return if (gameResult.winner) {
+            R.drawable.ic_smile
+        } else {
+            R.drawable.ic_sad
+        }
+    }
+
+    private fun getPercentOfRightAnswers() = with(gameResult) {
+        if (countOfQuestions == 0) {
+            0
+        } else {
+            ((countOfrightAnswer / countOfQuestions.toDouble()) * 100).toInt()
+        }
     }
 
     private fun parsArgs() {
@@ -68,7 +106,7 @@ class GameFinishedFragment : Fragment() {
 
 
     companion object {
-        private const val KEY_GAME_RESULT = "ru.pisarev.composition.game_result"
+        private const val KEY_GAME_RESULT = "game_result"
 
         fun newInstance(gameResult: GameResult): GameFinishedFragment{
             return GameFinishedFragment().apply {
