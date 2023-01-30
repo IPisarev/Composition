@@ -16,14 +16,17 @@ import ru.pisarev.composition.domain.repository.GameRepository
 import ru.pisarev.composition.domain.usecases.GenerateQuestionUseCase
 import ru.pisarev.composition.domain.usecases.GetGameSettingsUseCase
 
-class GameViewModel(application: Application) : AndroidViewModel(application) {
+class GameViewModel(
+    private val application: Application,
+    private val level: Level
+    ) : ViewModel() {
+
     private val context = application
 
     private val repository: GameRepository = GameRepositoryImpl
     private val generateQuestionUseCase = GenerateQuestionUseCase(repository)
     private val getGameSettingsUseCase = GetGameSettingsUseCase(repository)
 
-    private lateinit var level: Level
     private lateinit var gameSettings: GameSettings
 
     private var timer: CountDownTimer? = null
@@ -63,8 +66,12 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     val gameResult: LiveData<GameResult>
         get() = _gameResult
 
-    fun startGame(level: Level) {
-        getGameSettings(level)
+    init {
+        startGame()
+    }
+
+    private fun startGame() {
+        getGameSettings()
         startTimer()
         generateQuestion()
         updatePercent()
@@ -103,8 +110,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         return ((countRightAnswers * 100) / countQuestions.toDouble()).toInt()
     }
 
-    private fun getGameSettings(level: Level) {
-        this.level = level
+    private fun getGameSettings() {
         gameSettings = getGameSettingsUseCase(level)
         _minPercent.value = gameSettings.minPercentOfRightAnswer
     }
