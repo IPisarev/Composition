@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.findNavController
 import ru.pisarev.composition.R
 import ru.pisarev.composition.databinding.FragmentGameFinishedBinding
 import ru.pisarev.composition.domain.entity.GameResult
@@ -32,10 +33,6 @@ class GameFinishedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            OnBackPressedCallbackListener()
-        )
         binding.buttonRetry.setOnClickListener {
             retryGame()
         }
@@ -92,21 +89,11 @@ class GameFinishedFragment : Fragment() {
     }
 
     private fun retryGame() {
-        requireActivity().supportFragmentManager.popBackStack(
-            GameFragment.NAME,
-            FragmentManager.POP_BACK_STACK_INCLUSIVE
-        )
+       findNavController().popBackStack()
     }
-
-    private inner class OnBackPressedCallbackListener(): OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-           retryGame()
-        }
-    }
-
 
     companion object {
-        private const val KEY_GAME_RESULT = "game_result"
+        const val KEY_GAME_RESULT = "ru.pisarev.composition.game_result"
 
         fun newInstance(gameResult: GameResult): GameFinishedFragment{
             return GameFinishedFragment().apply {
