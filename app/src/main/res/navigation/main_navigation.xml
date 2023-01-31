@@ -40,5 +40,9 @@
         android:id="@+id/gameFinishedFragment"
         android:name="ru.pisarev.composition.presentation.GameFinishedFragment"
         android:label="fragment_game_finished"
-        tools:layout="@layout/fragment_game_finished" />
+        tools:layout="@layout/fragment_game_finished" >
+        <argument
+            android:name="GameResult"
+            app:argType="ru.pisarev.composition.domain.entity.GameResult" />
+    </fragment>
 </navigation>
